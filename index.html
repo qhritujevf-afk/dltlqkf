@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>헌혈의 중요성</title>
+  <style>
+    body {
+      margin: 0;
+      background: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+    }
+
+    .container {
+      max-width: 375px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0;
+      gap: 20px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0 12px;
+    }
+
+    .balloon-wrapper {
+      position: relative;
+      width: 44%;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+
+    .balloon {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* 풍선 뒤집기 */
+    .flip { transform: scaleX(-1); }
+    .vertical-flip { transform: scaleY(-1); }
+    .flip-xy { transform: scaleX(-1) scaleY(-1); }
+
+    .number {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 22px;
+      font-weight: 700;
+      color: black;
+      text-align: center;
+      line-height: 1.4;
+      pointer-events: none;
+      white-space: normal;
+      width: 80%;
+    }
+
+    .number span {
+      display: block;
+    }
+
+    /* 가운데 아이콘+텍스트 묶음 */
+    .center-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .center-icon {
+      width: 120px;
+      height: auto;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+      animation-delay: 0.1s;
+    }
+
+    .center-text {
+      position: absolute;
+      top: 30%;
+      font-size: 60px;
+      font-weight: bold;
+      color: black;
+      white-space: nowrap;
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+      animation-delay: 1.2s;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .fade-1 { animation-delay: 2.0s; } 
+    .fade-2 { animation-delay: 2.5s; } 
+    .fade-3 { animation-delay: 3.0s; } 
+    .fade-4 { animation-delay: 3.5s; } 
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="row">
+      <a href="page1.html" class="balloon-wrapper fade-1">
+        <img src="내용.png" alt="풍선1" class="balloon" />
+        <div class="number">헌혈이란?</div>
+      </a>
+      <a href="page2.html" class="balloon-wrapper fade-2">
+        <img src="내용.png" alt="풍선2" class="balloon flip" />
+        <div class="number">헌혈의 과학적 측면</div>
+      </a>
+    </div>
+
+    <div class="center-wrapper">
+      <img src="혈액.png" alt="혈액" class="center-icon" />
+      <div class="center-text">헌혈의 중요성</div>
+    </div>
+
+    <div class="row">
+      <a href="page3.html" class="balloon-wrapper fade-3">
+        <img src="내용.png" alt="풍선3" class="balloon vertical-flip" />
+        <div class="number">헌혈이 필요한 이유</div>
+      </a>
+      <a href="page4.html" class="balloon-wrapper fade-4">
+        <img src="내용.png" alt="풍선4" class="balloon flip-xy" />
+        <div class="number">헌혈의 현황</div>
+      </a>
+    </div>
+
+  </div>
+
+  <script>
+    // 모든 .number를 처리하되 첫 번째는 그대로 둠
+    document.querySelectorAll(".number").forEach((el, idx) => {
+      if (idx === 0) return; // 첫 번째는 원본 유지
+      const raw = el.textContent || "";
+      const noSpaces = raw.replace(/\s+/g, "");
+      if (noSpaces.length === 0) return;
+      const groups = [];
+      for (let i = 0; i < noSpaces.length; i += 3) {
+        groups.push(noSpaces.slice(i, i + 3));
+      }
+      el.innerHTML = groups.map(g => `<span>${g}</span>`).join("");
+    });
+  </script>
+</body>
+</html>
